@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 const RootLayout = () => {
   return (
@@ -12,8 +14,6 @@ const RootLayout = () => {
 };
 
 const Browse = () => <div className="p-8 text-center">Browse Page</div>;
-const About = () => <div className="p-8 text-center">About Page</div>;
-const Contact = () => <div className="p-8 text-center">Contact Page</div>;
 const MovieDetails = () => (
   <div className="p-8 text-center">Movie Details Page</div>
 );

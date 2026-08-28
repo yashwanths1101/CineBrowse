@@ -17,43 +17,36 @@ const HeroBanner = ({ movie }) => {
 
   return (
     <div className="relative w-full h-[75vh] min-h-[520px] max-h-[700px] overflow-hidden -mt-20">
-      {/* Backdrop Image */}
       <img
         src={backdropUrl}
         alt={title}
         className="w-full h-full object-cover object-center"
       />
 
-      {/* Black Gradient Overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/10 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-r from-black via-black/10 to-transparent" />
 
-      {/* Hero Content */}
       <div className="absolute inset-0 flex items-end">
         <div className="max-w-7xl mx-auto px-6 pb-14 w-full space-y-4">
-          {/* Rating & Year Badge */}
           <div className="flex items-center gap-3 text-xs font-semibold">
             <span className="flex items-center gap-1 bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2.5 py-1 rounded-md">
               <Star className="w-3.5 h-3.5 fill-amber-400" />
               <span>{rating}</span>
             </span>
-            <span className="text-slate-300 bg-zinc-900/80 px-2.5 py-1 rounded-md border border-zinc-800">
+            <span className="bg-zinc-900/80 px-2.5 py-1 rounded-md border border-zinc-800 text-slate-300">
               {releaseYear}
             </span>
           </div>
 
-          {/* Title */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight drop-shadow-md max-w-2xl">
             {title}
           </h1>
 
-          {/* Summary */}
-          <p className="text-slate-300 text-sm sm:text-base line-clamp-3 max-w-xl leading-relaxed">
+          <p className="text-slate-300 text-sm line-clamp-3 max-w-xl leading-relaxed sm:text-base">
             {overview}
           </p>
 
-          {/* Buttons */}
           <div className="flex items-center gap-4 pt-2">
             <Link
               to={`/movie/${id}`}

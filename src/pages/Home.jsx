@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
-import { fetchTrendingMovies } from "../utils/api";
+import {
+  fetchTrendingMovies,
+  fetchTop10Today,
+  fetchTopRatedMovies,
+  fetchMoviesByGenre,
+} from "../utils/api";
 import HeroBanner from "../components/HeroBanner";
+import MovieRow from "../components/MovieRow";
 
 const Home = () => {
   const [featuredMovie, setFeaturedMovie] = useState(null);
@@ -9,10 +15,8 @@ const Home = () => {
   useEffect(() => {
     const loadFeaturedMovie = async () => {
       try {
-        setLoading(true);
         const movies = await fetchTrendingMovies("day");
         if (movies && movies.length > 0) {
-          // select the first trending movie for the Hero Banner
           setFeaturedMovie(movies[0]);
         }
       } catch (err) {
@@ -36,9 +40,44 @@ const Home = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-black">
-      {/* Cinematic Hero Banner */}
+    <div className="w-full min-h-screen bg-black text-slate-100 pb-16">
       <HeroBanner movie={featuredMovie} />
+
+      {/* Row 1: TOP 10 Today */}
+      <MovieRow
+        title="TOP 10 Today"
+        fetchFn={fetchTop10Today}
+        variant="vertical"
+        isTop10={true}
+      />
+
+      {/* Row 2: Trending Today */}
+      <MovieRow
+        title="Trending Today"
+        fetchFn={() => fetchTrendingMovies("week")}
+        variant="horizontal"
+      />
+
+      {/* Row 3: Top Rated Movies */}
+      <MovieRow
+        title="Top Rated Movies"
+        fetchFn={fetchTopRatedMovies}
+        variant="vertical"
+      />
+
+      {/* Row 4: Comedy Hits */}
+      <MovieRow
+        title="Comedy Hits"
+        fetchFn={() => fetchMoviesByGenre(35)}
+        variant="vertical"
+      />
+
+      {/* Row 5: Action Blockbusters */}
+      <MovieRow
+        title="Action Blockbusters"
+        fetchFn={() => fetchMoviesByGenre(28)}
+        variant="horizontal"
+      />
     </div>
   );
 };

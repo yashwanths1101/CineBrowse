@@ -3,9 +3,8 @@ import { Home as HomeIcon, Grid, Info, Mail } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <header className="sticky top-0 z-1 bg-transparent">
+    <header className="top-0 z-1 bg-transparent">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Brand Logo */}
         <Link
           to="/"
           className="flex items-center gap-2 text-[#33CC99] font-bold text-xl hover:opacity-90 transition-opacity"
@@ -34,7 +33,6 @@ const Navbar = () => {
           <span>CineBrowse</span>
         </Link>
 
-        {/* Navigation Links */}
         <nav className="flex items-center gap-8 text-md font-medium">
           <NavLink
             to="/"
