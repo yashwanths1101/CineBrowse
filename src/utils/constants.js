@@ -4,12 +4,12 @@ export const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
 export const getPosterUrl = (path, size = "w500") => {
   if (!path)
-    return "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80";
+    return "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg";
   return `${TMDB_IMAGE_BASE_URL}/${size}${path}`;
 };
 
 export const getBackdropUrl = (path, size = "w780") => {
   if (!path)
-    return "https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=1280&q=80";
+    return "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80";
   return `${TMDB_IMAGE_BASE_URL}/${size}${path}`;
 };

@@ -2,7 +2,7 @@ import { TMDB_API_KEY, TMDB_BASE_URL } from "./constants";
 
 export const fetchTrendingMovies = async (timeWindow = "day") => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/trending/movie/${timeWindow}?api_key=${TMDB_API_KEY}`
+    `${TMDB_BASE_URL}/trending/movie/${timeWindow}?api_key=${TMDB_API_KEY}`,
   );
 
   if (!response.ok) {
@@ -15,7 +15,7 @@ export const fetchTrendingMovies = async (timeWindow = "day") => {
 
 export const fetchTop10Today = async () => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/trending/all/day?api_key=${TMDB_API_KEY}`
+    `${TMDB_BASE_URL}/trending/all/day?api_key=${TMDB_API_KEY}`,
   );
 
   if (!response.ok) {
@@ -28,7 +28,7 @@ export const fetchTop10Today = async () => {
 
 export const fetchTopRatedMovies = async () => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/movie/top_rated?api_key=${TMDB_API_KEY}`
+    `${TMDB_BASE_URL}/movie/top_rated?api_key=${TMDB_API_KEY}`,
   );
 
   if (!response.ok) {
@@ -41,7 +41,7 @@ export const fetchTopRatedMovies = async () => {
 
 export const fetchMoviesByGenre = async (genreId) => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&with_genres=${genreId}&sort_by=popularity.desc`
+    `${TMDB_BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&with_genres=${genreId}&sort_by=popularity.desc`,
   );
 
   if (!response.ok) {
@@ -50,4 +50,28 @@ export const fetchMoviesByGenre = async (genreId) => {
 
   const data = await response.json();
   return data.results;
+};
+
+export const fetchMediaDetails = async (id, type = "movie") => {
+  const response = await fetch(
+    `${TMDB_BASE_URL}/${type}/${id}?api_key=${TMDB_API_KEY}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${type} details`);
+  }
+
+  return await response.json();
+};
+
+export const fetchMediaCredits = async (id, type = "movie") => {
+  const response = await fetch(
+    `${TMDB_BASE_URL}/${type}/${id}/credits?api_key=${TMDB_API_KEY}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${type} credits`);
+  }
+
+  return await response.json();
 };

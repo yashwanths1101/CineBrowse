@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import MovieDetails from "./pages/MovieDetails";
+import ErrorMovieDetails from "./pages/ErrorMovieDetails";
 
 const RootLayout = () => {
   return (
@@ -14,9 +16,6 @@ const RootLayout = () => {
 };
 
 const Browse = () => <div className="p-8 text-center">Browse Page</div>;
-const MovieDetails = () => (
-  <div className="p-8 text-center">Movie Details Page</div>
-);
 
 const router = createBrowserRouter([
   {
@@ -42,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: "movie/:id",
         element: <MovieDetails />,
+      },
+      {
+        path: "tv/:id",
+        element: <MovieDetails />,
+      },
+      {
+        path: "*",
+        element: <ErrorMovieDetails />,
       },
     ],
   },

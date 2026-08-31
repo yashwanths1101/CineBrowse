@@ -15,10 +15,9 @@ const MovieRow = ({
 
   useEffect(() => {
     const loadData = async () => {
-      if (!fetchFn) return
       try {
         const data = await fetchFn()
-        setMovies(data || [])
+        setMovies(data)
       } catch (err) {
         console.error(`Error loading row [${title}]:`, err)
         setError('Failed to load row content.')
@@ -59,7 +58,6 @@ const MovieRow = ({
         <button
           onClick={() => handleScroll('left')}
           className='absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-black/80 hover:bg-[#33CC99] text-white hover:text-black rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl backdrop-blur-sm -ml-3 border border-slate-700/60 hover:border-[#33CC99]'
-          aria-label='Scroll left'
         >
           <svg
             className='w-6 h-6 stroke-current fill-none stroke-[2.5]'
@@ -75,7 +73,7 @@ const MovieRow = ({
 
         <div
           ref={rowRef}
-          className='flex space-x-4 md:space-x-5 overflow-x-auto py-2 px-1 scroll-smooth'
+          className='flex space-x-4 md:space-x-5 overflow-x-auto py-4 px-1 scroll-smooth'
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {loading
@@ -95,7 +93,6 @@ const MovieRow = ({
         <button
           onClick={() => handleScroll('right')}
           className='absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-black/80 hover:bg-[#33CC99] text-white hover:text-black rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl backdrop-blur-sm -mr-3 border border-slate-700/60 hover:border-[#33CC99]'
-          aria-label='Scroll right'
         >
           <svg
             className='w-6 h-6 stroke-current fill-none stroke-[2.5]'
