@@ -8,7 +8,7 @@ const MovieDetails = () => {
   const { id } = useParams();
   const location = useLocation();
 
-  console.log(`${location} ${id}`);
+  console.log(`${location}`);
 
   const type = location.pathname.startsWith("/tv") ? "tv" : "movie";
 

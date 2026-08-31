@@ -13,6 +13,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
+
     const loadFeaturedMovie = async () => {
       try {
         const movies = await fetchTrendingMovies("day");

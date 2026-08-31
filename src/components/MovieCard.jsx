@@ -4,8 +4,6 @@ import { getPosterUrl, getBackdropUrl } from "../utils/constants";
 const MovieCard = ({ movie, variant = "vertical", rank = null }) => {
   if (!movie) return null;
 
-  console.log(movie);
-
   const title = movie.title || movie.name || "Untitled";
   const releaseDate = movie.release_date || movie.first_air_date || "";
   const year = releaseDate ? releaseDate.split("-")[0] : "N/A";
@@ -20,11 +18,11 @@ const MovieCard = ({ movie, variant = "vertical", rank = null }) => {
   return (
     <Link
       to={detailPath}
-      className={`group relative flex-shrink-0 cursor-pointer transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 ${
+      className={`group relative flex-shrink-0 cursor-pointer transition-all duration-300 ${
         isHorizontal ? "w-64 md:w-80" : "w-40 sm:w-48 md:w-52"
       }`}
     >
-      <div className="relative rounded-xl bg-slate-900 border border-slate-800/80 shadow-lg group-hover:border-[#33CC99]/50 group-hover:shadow-[#33CC99]/20">
+      <div className="relative rounded-xl bg-slate-900 border border-slate-800/80 shadow-lg group-hover:border-[#33CC99]/50 overflow-hidden group-hover:shadow-[#33CC99]/20">
         {rank !== null && (
           <div className="absolute top-2 left-2 z-10 bg-gradient-to-r from-[#33CC99] to-emerald-600 text-black font-extrabold text-[10px] sm:text-xs px-2 py-0.5 rounded shadow-md uppercase tracking-wider">
             TOP {String(rank).padStart(2, "0")}
@@ -38,7 +36,7 @@ const MovieCard = ({ movie, variant = "vertical", rank = null }) => {
               : getPosterUrl(movie.poster_path)
           }
           alt={title}
-          className={`w-full object-cover transition-transform duration-500 group-hover:brightness-110 ${
+          className={`w-full object-cover transition-transform duration-500 group-hover:brightness-110 group-hover:scale-110 ${
             isHorizontal ? "h-36 md:h-44" : "h-60 sm:h-72"
           }`}
         />

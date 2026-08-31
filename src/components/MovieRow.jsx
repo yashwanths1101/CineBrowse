@@ -15,6 +15,8 @@ const MovieRow = ({
 
   useEffect(() => {
     const loadData = async () => {
+      setLoading(true)
+      setError(null)
       try {
         const data = await fetchFn()
         setMovies(data)

@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import MovieDetails from "./pages/MovieDetails";
 import ErrorMovieDetails from "./pages/ErrorMovieDetails";
+import MovieBrowseGrid from "./components/MovieBrowseGrid";
 
 const RootLayout = () => {
   return (
@@ -14,8 +15,6 @@ const RootLayout = () => {
     </div>
   );
 };
-
-const Browse = () => <div className="p-8 text-center">Browse Page</div>;
 
 const router = createBrowserRouter([
   {
@@ -27,8 +26,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "explore",
-        element: <Browse />,
+        path: "browse",
+        element: <MovieBrowseGrid />,
       },
       {
         path: "about",

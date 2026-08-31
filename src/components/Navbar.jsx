@@ -47,7 +47,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
-            to="/explore"
+            to="/browse"
             className={({ isActive }) =>
               isActive
                 ? "text-[#33CC99] font-semibold flex items-center gap-1.5"

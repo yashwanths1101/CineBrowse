@@ -10,6 +10,7 @@ export const fetchTrendingMovies = async (timeWindow = "day") => {
   }
 
   const data = await response.json();
+  console.log(data);
   return data.results;
 };
 
@@ -74,4 +75,25 @@ export const fetchMediaCredits = async (id, type = "movie") => {
   }
 
   return await response.json();
+};
+
+export const fetchBrowseMovies = async (category) => {
+  switch (category) {
+    case "mostpopular":
+      return fetchTrendingMovies();
+    case "mostrating":
+      return fetchTopRatedMovies();
+    case "mostrecent":
+      return fetchTrendingMovies("day");
+    case "action":
+      return fetchMoviesByGenre("28");
+    case "adventure":
+      return fetchMoviesByGenre("12");
+    case "animation":
+      return fetchMoviesByGenre("16");
+    case "comedy":
+      return fetchMoviesByGenre("35");
+    default:
+      return fetchTrendingMovies();
+  }
 };
