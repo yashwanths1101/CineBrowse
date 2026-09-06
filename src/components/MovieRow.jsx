@@ -17,6 +17,7 @@ const MovieRow = ({
     const loadData = async () => {
       setLoading(true)
       setError(null)
+
       try {
         const data = await fetchFn()
         setMovies(data)
@@ -54,30 +55,29 @@ const MovieRow = ({
         </h2>
       </div>
 
-      {error && <div className='text-red-400 text-sm py-4'>{error}</div>}
+      {error && <div className='text-red-400 text-sm'>{error}</div>}
 
       <div className='relative'>
-        <button
-          onClick={() => handleScroll('left')}
-          className='absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-black/80 hover:bg-[#33CC99] text-white hover:text-black rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl backdrop-blur-sm -ml-3 border border-slate-700/60 hover:border-[#33CC99]'
-        >
-          <svg
-            className='w-6 h-6 stroke-current fill-none stroke-[2.5]'
-            viewBox='0 0 24 24'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M15 19l-7-7 7-7'
-            />
-          </svg>
-        </button>
-
         <div
           ref={rowRef}
           className='flex space-x-4 md:space-x-5 overflow-x-auto py-4 px-1 scroll-smooth'
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
+          <button
+            onClick={() => handleScroll('left')}
+            className='absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-full rounded-lg md:w-12 md:h-full bg-transparent text-white flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 -ml-3 hover:cursor-pointer hover:bg-zinc-950/80'
+          >
+            <svg
+              className='w-6 h-6 stroke-current fill-none stroke-[2.5]'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M15 19l-7-7 7-7'
+              />
+            </svg>
+          </button>
           {loading
             ? Array.from({ length: 6 }).map((_, idx) => (
                 <ShimmerCard key={idx} variant={variant} />
@@ -94,7 +94,7 @@ const MovieRow = ({
 
         <button
           onClick={() => handleScroll('right')}
-          className='absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-black/80 hover:bg-[#33CC99] text-white hover:text-black rounded-full flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 shadow-xl backdrop-blur-sm -mr-3 border border-slate-700/60 hover:border-[#33CC99]'
+          className='absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-full rounded-lg md:w-12 md:h-full bg-transparent text-white flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-all duration-300 -ml-3 hover:cursor-pointer hover:bg-zinc-950/80'
         >
           <svg
             className='w-6 h-6 stroke-current fill-none stroke-[2.5]'
