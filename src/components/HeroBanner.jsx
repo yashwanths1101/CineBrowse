@@ -48,7 +48,7 @@ const HeroBanner = ({ movie }) => {
           <div className='flex items-center gap-4 pt-2'>
             <Link
               to={`/movie/${id}`}
-              className='flex items-center gap-2 bg-[#33CC99] text-black hover:bg-[#2bb888] cursor-pointer font-bold px-6 py-2.5 rounded-lg transition-all shadow-lg shadow-[#33CC99]/20'
+              className='flex items-center h-10 gap-2 bg-[#33CC99] text-black hover:bg-[#2bb888] cursor-pointer font-bold px-6 py-2.5 rounded-lg transition-all shadow-lg shadow-[#33CC99]/20'
             >
               <Play className='w-4 h-4 fill-black' />
               <span>Watch Details</span>
