@@ -26,7 +26,7 @@ const MovieDetails = () => {
           fetchMediaCredits(id, type)
         ])
         setDetails(detailsData)
-        setCast(creditsData?.cast)
+        setCast(creditsData?.cast || [])
       } catch (err) {
         console.error('Error fetching media details:', err)
         setError(true)
@@ -38,7 +38,7 @@ const MovieDetails = () => {
     if (id) {
       loadMediaData()
     }
-  }, [])
+  }, [id, type])
 
   if (loading) {
     return (
@@ -55,11 +55,18 @@ const MovieDetails = () => {
   const year = releaseDate ? releaseDate.split('-')[0] : 'N/A'
   const rating = details.vote_average ? details.vote_average.toFixed(1) : 'NR'
 
-  const runtimeMin = details.runtime
-  const hours = Math.floor(runtimeMin / 60)
-  const minutes = runtimeMin % 60
+  const runtimeMin =
+    details.runtime || (details.episode_run_time && details.episode_run_time[0])
+  const hours = runtimeMin ? Math.floor(runtimeMin / 60) : 0
+  const minutes = runtimeMin ? runtimeMin % 60 : 0
   const formattedRuntime =
-    runtimeMin > 0 ? `${hours > 0 ? `${hours}h ` : ''}${minutes}m` : null
+    runtimeMin > 0
+      ? `${hours > 0 ? `${hours}h ` : ''}${minutes}m`
+      : details.number_of_seasons
+      ? `${details.number_of_seasons} Season${
+          details.number_of_seasons > 1 ? 's' : ''
+        }`
+      : null
 
   const genres = details.genres
     ? details.genres.map(g => g.name).join(' · ')

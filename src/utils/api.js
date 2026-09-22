@@ -14,18 +14,8 @@ export const fetchTrendingMovies = async (timeWindow = "day", page = 1) => {
 };
 
 export const fetchNowPlayingMovies = async (page = 1) => {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZGE1YjIxZDIyOGUwNDBhYjQxZTQzMzg3MmQ0NmZjOCIsIm5iZiI6MTc4NzczODQwNi43MzcsInN1YiI6IjZhOGViOTI2YTI2NjNjZmIwM2MzNmYyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JGuyduUrzukr71TJqFcwfkpzSNUivSFQZM3W8fvlI10",
-    },
-  };
-
   const response = await fetch(
-    "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-    options,
+    `${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`,
   );
 
   if (!response.ok) throw new Error("Failed to fetch now playing movies");
@@ -116,4 +106,35 @@ export const fetchBrowseMovies = async (category, page) => {
     default:
       return fetchTrendingMovies();
   }
+};
+
+export const fetchMovieByName = async (name, mediaType = "all", page = 1) => {
+  if (!name || !name.trim()) return [];
+
+  let endpoint = `${TMDB_BASE_URL}/search/multi?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+    name,
+  )}&page=${page}&include_adult=false`;
+
+  if (mediaType === "movie") {
+    endpoint = `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+      name,
+    )}&page=${page}&include_adult=false`;
+  } else if (mediaType === "tv") {
+    endpoint = `${TMDB_BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+      name,
+    )}&page=${page}&include_adult=false`;
+  }
+
+  const response = await fetch(endpoint);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch movie by name");
+  }
+
+  const data = await response.json();
+
+  return (data.results || []).filter((item) => {
+    if (mediaType === "all") return true;
+    return mediaType === item.media_type;
+  });
 };
