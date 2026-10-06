@@ -10,18 +10,10 @@ const MovieBrowseGrid = () => {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const sentinal = useRef(null)
-  const maxPages = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
-      console.log(loading)
-      console.log(entries)
-
-      if (
-        !loading &&
-        entries[0].isIntersecting &&
-        (maxPages.current === null || page < maxPages.current)
-      ) {
+      if (!loading && entries[0].isIntersecting) {
         setPage(prevPage => prevPage + 1)
       }
     })
@@ -37,8 +29,6 @@ const MovieBrowseGrid = () => {
       try {
         const data = await fetchBrowseMovies(category, page)
         setMovies(prev => [...prev, ...data])
-
-        console.log(data)
       } catch (e) {
         console.log(e)
         setError('Error loading movies')
@@ -69,7 +59,6 @@ const MovieBrowseGrid = () => {
             onClick={() => {
               setCategory(cat[0])
               setPage(1)
-              maxPages.current = null
               setMovies([])
             }}
             className={`cursor-pointer hover:text-[#33CC99] ${

@@ -75,7 +75,7 @@ const SearchResult = ({ query, mediaType, setIsSearch }) => {
   if (movies.length === 0) {
     return (
       <div className='py-10 text-center text-slate-400 text-sm'>
-        No results found for {query}.
+        No results found for {query}
       </div>
     )
   }
@@ -130,7 +130,7 @@ const SearchResult = ({ query, mediaType, setIsSearch }) => {
 
               <button
                 type='button'
-                onClick={toggleExpand(movie.id)}
+                onClick={() => toggleExpand(movie.id)}
                 className='absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors cursor-pointer rounded-lg hover:bg-zinc-800/80 pointer-events-none'
                 aria-label='Toggle details'
               >
