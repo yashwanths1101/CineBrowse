@@ -44,7 +44,7 @@ A responsive single-page movie and TV discovery platform built with **React** an
 
 - Node.js
 - npm
-- TMDB API key
+- TMDB API Read Access Token (Bearer token)
 
 ### Installation
 
@@ -61,4 +61,4 @@ Install dependencies:
 
 Create a `.env` file in the project root:
 
-    VITE_TMDB_API_KEY=your_tmdb_api_key
+    VITE_TMDB_TOKEN=your_tmdb_bearer_token

@@ -1,6 +1,15 @@
-export const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY || "";
+export const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 export const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 export const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
+
+export const TMDB_HEADERS = {
+  accept: "application/json",
+  Authorization: TMDB_TOKEN
+    ? TMDB_TOKEN.startsWith("Bearer ")
+      ? TMDB_TOKEN
+      : `Bearer ${TMDB_TOKEN}`
+    : "",
+};
 
 export const getPosterUrl = (path, size = "w500") => {
   if (!path)

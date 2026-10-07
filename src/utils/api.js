@@ -1,8 +1,9 @@
-import { TMDB_API_KEY, TMDB_BASE_URL } from "./constants";
+import { TMDB_BASE_URL, TMDB_HEADERS } from "./constants";
 
 export const fetchTrendingMovies = async (timeWindow = "day", page = 1) => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/trending/movie/${timeWindow}?api_key=${TMDB_API_KEY}&page=${page}`,
+    `${TMDB_BASE_URL}/trending/movie/${timeWindow}?page=${page}`,
+    { headers: TMDB_HEADERS },
   );
 
   if (!response.ok) {
@@ -15,7 +16,8 @@ export const fetchTrendingMovies = async (timeWindow = "day", page = 1) => {
 
 export const fetchNowPlayingMovies = async (page = 1) => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`,
+    `${TMDB_BASE_URL}/movie/now_playing?language=en-US&page=${page}`,
+    { headers: TMDB_HEADERS },
   );
 
   if (!response.ok) throw new Error("Failed to fetch now playing movies");
@@ -26,7 +28,8 @@ export const fetchNowPlayingMovies = async (page = 1) => {
 
 export const fetchTop10Today = async (page = 1) => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/trending/all/day?api_key=${TMDB_API_KEY}&page=${page}`,
+    `${TMDB_BASE_URL}/trending/all/day?page=${page}`,
+    { headers: TMDB_HEADERS },
   );
 
   if (!response.ok) {
@@ -39,7 +42,8 @@ export const fetchTop10Today = async (page = 1) => {
 
 export const fetchTopRatedMovies = async (page = 1) => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/movie/top_rated?api_key=${TMDB_API_KEY}&page=${page}`,
+    `${TMDB_BASE_URL}/movie/top_rated?page=${page}`,
+    { headers: TMDB_HEADERS },
   );
 
   if (!response.ok) {
@@ -52,7 +56,8 @@ export const fetchTopRatedMovies = async (page = 1) => {
 
 export const fetchMoviesByGenre = async (genreId, page = 1) => {
   const response = await fetch(
-    `${TMDB_BASE_URL}/discover/movie?api_key=${TMDB_API_KEY}&with_genres=${genreId}&sort_by=popularity.desc&page=${page}`,
+    `${TMDB_BASE_URL}/discover/movie?with_genres=${genreId}&sort_by=popularity.desc&page=${page}`,
+    { headers: TMDB_HEADERS },
   );
 
   if (!response.ok) {
@@ -64,9 +69,9 @@ export const fetchMoviesByGenre = async (genreId, page = 1) => {
 };
 
 export const fetchMediaDetails = async (id, type = "movie") => {
-  const response = await fetch(
-    `${TMDB_BASE_URL}/${type}/${id}?api_key=${TMDB_API_KEY}`,
-  );
+  const response = await fetch(`${TMDB_BASE_URL}/${type}/${id}`, {
+    headers: TMDB_HEADERS,
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch ${type} details`);
@@ -76,9 +81,9 @@ export const fetchMediaDetails = async (id, type = "movie") => {
 };
 
 export const fetchMediaCredits = async (id, type = "movie") => {
-  const response = await fetch(
-    `${TMDB_BASE_URL}/${type}/${id}/credits?api_key=${TMDB_API_KEY}`,
-  );
+  const response = await fetch(`${TMDB_BASE_URL}/${type}/${id}/credits`, {
+    headers: TMDB_HEADERS,
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch ${type} credits`);
@@ -111,21 +116,21 @@ export const fetchBrowseMovies = async (category, page) => {
 export const fetchMovieByName = async (name, mediaType = "all", page = 1) => {
   if (!name || !name.trim()) return [];
 
-  let endpoint = `${TMDB_BASE_URL}/search/multi?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+  let endpoint = `${TMDB_BASE_URL}/search/multi?query=${encodeURIComponent(
     name,
   )}&page=${page}&include_adult=false`;
 
   if (mediaType === "movie") {
-    endpoint = `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+    endpoint = `${TMDB_BASE_URL}/search/movie?query=${encodeURIComponent(
       name,
     )}&page=${page}&include_adult=false`;
   } else if (mediaType === "tv") {
-    endpoint = `${TMDB_BASE_URL}/search/tv?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
+    endpoint = `${TMDB_BASE_URL}/search/tv?query=${encodeURIComponent(
       name,
     )}&page=${page}&include_adult=false`;
   }
 
-  const response = await fetch(endpoint);
+  const response = await fetch(endpoint, { headers: TMDB_HEADERS });
 
   if (!response.ok) {
     throw new Error("Failed to fetch movie by name");
