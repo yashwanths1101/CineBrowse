@@ -97,64 +97,63 @@ const SearchResult = ({ query, mediaType, setIsSearch }) => {
         return (
           <div
             key={movie.id}
-            className='rounded-xl transition-all duration-200 overflow-hidden bg-zinc-900/40 hover:bg-zinc-900/70'
+            className='rounded-xl transition-all duration-200 overflow-hidden bg-zinc-900/50 hover:bg-zinc-900/80'
           >
             <div
-              onClick={e => toggleExpand(movie.id, e)}
-              className='flex relative items-center gap-3 p-3 cursor-pointer select-none'
+              onClick={() => toggleExpand(movie.id)}
+              className='flex relative items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 cursor-pointer select-none'
             >
               <img
                 src={getPosterUrl(movie.poster_path, 'w185')}
                 alt={title}
-                className='w-14 h-20 object-cover rounded-lg bg-zinc-950'
+                className='w-11 h-16 sm:w-14 sm:h-20 object-cover rounded-lg bg-zinc-950 flex-shrink-0'
               />
 
-              <div>
-                <h4 className='font-semibold text-white text-sm'>{title}</h4>
-                <div className='flex items-center gap-1.5 text-xs text-slate-400 mt-1'>
-                  <span>{mediaLabel}</span>
-                  <span>|</span>
+              <div className='min-w-0 flex-1 pr-6'>
+                <h4 className='font-semibold text-white text-xs sm:text-sm truncate'>
+                  {title}
+                </h4>
+                <div className='flex flex-wrap items-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs text-slate-400 mt-1'>
+                  <span className='capitalize'>{mediaLabel}</span>
+                  <span>•</span>
                   <span>{year}</span>
-                  <span>|</span>
+                  <span>•</span>
                   <span className='flex items-center text-amber-400 font-medium gap-0.5'>
                     ★ {rating}
                   </span>
                   {genres && (
                     <>
-                      <span>|</span>
-                      <span className='truncate max-w-[150px]'>{genres}</span>
+                      <span>•</span>
+                      <span className='truncate max-w-[90px] sm:max-w-[150px]'>
+                        {genres}
+                      </span>
                     </>
                   )}
                 </div>
               </div>
 
-              <button
-                type='button'
-                onClick={() => toggleExpand(movie.id)}
-                className='absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors cursor-pointer rounded-lg hover:bg-zinc-800/80 pointer-events-none'
-                aria-label='Toggle details'
-              >
+              <div className='absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 text-slate-400'>
                 {isExpanded ? (
                   <ChevronUp className='w-4 h-4' />
                 ) : (
                   <ChevronDown className='w-4 h-4' />
                 )}
-              </button>
+              </div>
             </div>
 
             {isExpanded && (
-              <div className='px-3 pb-3 pt-1 text-xs text-slate-300'>
-                <p className='line-clamp-3 leading-relaxed text-slate-300/90 mb-3'>
+              <div className='px-2.5 sm:px-3 pb-3 pt-1 text-xs text-slate-300 border-t border-zinc-800/40 mt-0.5'>
+                <p className='line-clamp-3 leading-relaxed text-slate-300/90 mb-2.5 text-[11px] sm:text-xs'>
                   {movie.overview || 'No synopsis available.'}
                 </p>
 
-                <div className='flex items-center gap-2 pt-1'>
+                <div className='flex items-center gap-2 pt-0.5'>
                   <button
                     onClick={() => handleNavigate(movie)}
-                    className='flex items-center gap-1.5 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700/70 text-slate-200 font-medium text-xs px-4 py-1.5 rounded-full transition-colors cursor-pointer'
+                    className='flex items-center gap-1.5 bg-[#33CC99] text-black hover:bg-[#2bb888] font-bold text-xs px-3.5 py-1.5 rounded-full transition-colors cursor-pointer shadow-sm shadow-[#33CC99]/20'
                   >
-                    <Info className='w-3.5 h-3.5 text-slate-300' />
-                    <span>Movie Details</span>
+                    <Info className='w-3.5 h-3.5' />
+                    <span>Watch Details</span>
                   </button>
                 </div>
               </div>

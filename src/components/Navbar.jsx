@@ -4,26 +4,37 @@ import {
   Grid,
   Info,
   Mail,
-  Search as SearchIcon
+  Search as SearchIcon,
+  Menu,
+  X
 } from 'lucide-react'
 import { useState } from 'react'
 import Search from './Search.jsx'
 
 const Navbar = () => {
   const [isSearch, setIsSearch] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const navLinks = [
+    { to: '/', label: 'Home', icon: HomeIcon },
+    { to: '/browse', label: 'Browse', icon: Grid },
+    { to: '/about', label: 'About', icon: Info },
+    { to: '/contact', label: 'Contact', icon: Mail }
+  ]
 
   return (
-    <header className='z-[100] bg-transparent w-full'>
-      <div className='max-w-7xl mx-auto px-6 h-20 flex items-center justify-between'>
+    <header className='relative z-[100] bg-transparent w-full'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between'>
         <Link
           to='/'
-          className='flex items-center gap-2 text-[#33CC99] font-bold text-xl hover:opacity-90 transition-opacity'
+          onClick={() => setIsMenuOpen(false)}
+          className='flex items-center gap-2 text-[#33CC99] font-bold text-lg sm:text-xl hover:opacity-90 transition-opacity'
         >
           <svg
-            width='2.5rem'
-            height='2.5rem'
+            width='2.25rem'
+            height='2.25rem'
             viewBox='0 0 1024 1024'
-            className='icon'
+            className='icon w-8 h-8 sm:w-10 sm:h-10'
             version='1.1'
             xmlns='http://www.w3.org/2000/svg'
           >
@@ -43,63 +54,79 @@ const Navbar = () => {
           <span>CineBrowse</span>
         </Link>
 
-        <nav className='flex items-center gap-8 text-md font-medium'>
+        <div className='flex items-center gap-4 sm:gap-6'>
           <button
-            className='text-slate-300 hover:text-white cursor-pointer transition-colors'
-            onClick={() => setIsSearch(!isSearch)}
+            className='text-slate-300 hover:text-white cursor-pointer transition-colors p-1'
+            onClick={() => {
+              setIsSearch(!isSearch)
+              setIsMenuOpen(false)
+            }}
+            aria-label='Search'
           >
-            <SearchIcon className='w-6 h-6' />
+            <SearchIcon className='w-5 h-5 sm:w-6 sm:h-6' />
           </button>
           {isSearch && <Search setIsSearch={setIsSearch} />}
-          <NavLink
-            to='/'
-            className={({ isActive }) =>
-              isActive
-                ? 'text-[#33CC99] font-semibold flex items-center gap-1.5'
-                : 'text-slate-300 hover:text-white transition-colors flex items-center gap-1.5'
-            }
-          >
-            <HomeIcon className='w-4 h-4' />
-            <span>Home</span>
-          </NavLink>
 
-          <NavLink
-            to='/browse'
-            className={({ isActive }) =>
-              isActive
-                ? 'text-[#33CC99] font-semibold flex items-center gap-1.5'
-                : 'text-slate-300 hover:text-white transition-colors flex items-center gap-1.5'
-            }
-          >
-            <Grid className='w-4 h-4' />
-            <span>Browse</span>
-          </NavLink>
+          {/* Desktop Navigation */}
+          <nav className='hidden md:flex items-center gap-8 text-md font-medium'>
+            {navLinks.map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-[#33CC99] font-semibold flex items-center gap-1.5'
+                    : 'text-slate-300 hover:text-white transition-colors flex items-center gap-1.5'
+                }
+              >
+                <Icon className='w-4 h-4' />
+                <span>{label}</span>
+              </NavLink>
+            ))}
+          </nav>
 
-          <NavLink
-            to='/about'
-            className={({ isActive }) =>
-              isActive
-                ? 'text-[#33CC99] font-semibold flex items-center gap-1.5'
-                : 'text-slate-300 hover:text-white transition-colors flex items-center gap-1.5'
-            }
+          {/* Mobile Menu Toggle Button */}
+          <button
+            className='md:hidden text-slate-300 hover:text-white cursor-pointer transition-colors p-1 focus:outline-none'
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label='Toggle navigation menu'
           >
-            <Info className='w-4 h-4' />
-            <span>About</span>
-          </NavLink>
-
-          <NavLink
-            to='/contact'
-            className={({ isActive }) =>
-              isActive
-                ? 'text-[#33CC99] font-semibold flex items-center gap-1.5'
-                : 'text-slate-300 hover:text-white transition-colors flex items-center gap-1.5'
-            }
-          >
-            <Mail className='w-4 h-4' />
-            <span>Contact</span>
-          </NavLink>
-        </nav>
+            {isMenuOpen ? (
+              <X className='w-6 h-6 text-[#33CC99]' />
+            ) : (
+              <Menu className='w-6 h-6' />
+            )}
+          </button>
+        </div>
       </div>
+
+      {isMenuOpen && (
+        <div>
+          <div
+            className='md:hidden fixed inset-0 z-40 bg-black/60'
+            onClick={() => setIsMenuOpen(false)}
+          />
+          <nav className='md:hidden absolute top-full left-0 w-full z-50 bg-zinc-950/95 backdrop-blur-md border-b border-zinc-800/80 px-4 py-3 flex flex-col gap-1 shadow-2xl animate-in slide-in-from-top duration-200'>
+            {navLinks.map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'text-[#33CC99] bg-[#33CC99]/10 font-semibold'
+                      : 'text-slate-300 hover:text-white hover:bg-zinc-900'
+                  }`
+                }
+              >
+                <Icon className='w-4 h-4' />
+                <span>{label}</span>
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   )
 }

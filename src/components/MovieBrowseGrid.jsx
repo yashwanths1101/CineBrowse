@@ -51,8 +51,11 @@ const MovieBrowseGrid = () => {
   ]
 
   return (
-    <div className='flex-col gap-4 pb-10'>
-      <div className='h-8 text-slate-200 font-semibold mt-12 flex justify-center items-center gap-10'>
+    <div className='w-full pb-10'>
+      <div
+        className='text-slate-200 font-semibold mt-6 sm:mt-12 flex items-center justify-start md:justify-center gap-5 sm:gap-8 md:gap-10 overflow-x-auto px-4 sm:px-6 py-2 whitespace-nowrap text-sm sm:text-base'
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
         {categoryList.map(cat => (
           <button
             key={cat[0]}
@@ -61,7 +64,7 @@ const MovieBrowseGrid = () => {
               setPage(1)
               setMovies([])
             }}
-            className={`cursor-pointer hover:text-[#33CC99] ${
+            className={`cursor-pointer hover:text-[#33CC99] transition-colors flex-shrink-0 ${
               category === cat[0] ? 'text-[#33CC99]' : ''
             }`}
           >
@@ -74,7 +77,7 @@ const MovieBrowseGrid = () => {
         <div className='text-red-500 text-center mt-6'>Error: {error}</div>
       )}
 
-      <div className='flex justify-center px-5 mt-10 flex-wrap gap-4'>
+      <div className='flex justify-center px-3 sm:px-5 mt-6 sm:mt-10 flex-wrap gap-3 sm:gap-4'>
         {movies.map((movie, i) => (
           <MovieCard movie={movie} variant='horizontal' key={i} />
         ))}

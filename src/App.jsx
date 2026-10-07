@@ -12,7 +12,7 @@ const MovieBrowseGrid = lazy(() => import('./components/MovieBrowseGrid'))
 
 const RootLayout = () => {
   return (
-    <div className='min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#33CC99] selection:text-black'>
+    <div className='bg-black text-slate-100 min-h-screen flex flex-col font-sans selection:bg-[#33CC99] selection:text-black'>
       <Navbar />
       <Outlet />
     </div>
