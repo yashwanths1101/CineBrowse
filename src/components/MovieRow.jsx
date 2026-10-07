@@ -88,6 +88,7 @@ const MovieRow = ({
                   movie={movie}
                   variant={variant}
                   rank={isTop10 ? index + 1 : null}
+                  lazyLoading={!isTop10 ? true : false}
                 />
               ))}
         </div>

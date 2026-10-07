@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom'
 import { getPosterUrl, getBackdropUrl } from '../utils/constants'
 
-const MovieCard = ({ movie, variant = 'vertical', rank = null }) => {
+const MovieCard = ({
+  movie,
+  variant = 'vertical',
+  rank = null,
+  lazyLoading = false
+}) => {
   if (!movie) return null
 
   const title = movie.title || movie.name || 'Untitled'
@@ -36,8 +41,9 @@ const MovieCard = ({ movie, variant = 'vertical', rank = null }) => {
               : getPosterUrl(movie.poster_path)
           }
           alt={title}
+          loading={lazyLoading ? 'lazy' : 'eager'}
           className={`w-full object-cover transition-transform duration-500 group-hover:brightness-110 group-hover:scale-110 ${
-            isHorizontal ? 'h-36 md:h-44' : 'h-60 sm:h-72'
+            isHorizontal ? 'h-36 md:h-44' : 'h-60 sm: h-72'
           }`}
         />
 

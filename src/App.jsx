@@ -1,60 +1,67 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import MovieDetails from "./pages/MovieDetails";
-import ErrorMovieDetails from "./pages/ErrorMovieDetails";
-import MovieBrowseGrid from "./components/MovieBrowseGrid";
+import { lazy, Suspense } from 'react'
+import PageLoader from './components/PageLoader'
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
+const Navbar = lazy(() => import('./components/Navbar'))
+
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+const Contact = lazy(() => import('./pages/Contact'))
+const MovieDetails = lazy(() => import('./pages/MovieDetails'))
+const ErrorMovieDetails = lazy(() => import('./pages/ErrorMovieDetails'))
+const MovieBrowseGrid = lazy(() => import('./components/MovieBrowseGrid'))
 
 const RootLayout = () => {
   return (
-    <div className="min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#33CC99] selection:text-black">
+    <div className='min-h-screen bg-black text-slate-100 flex flex-col font-sans selection:bg-[#33CC99] selection:text-black'>
       <Navbar />
       <Outlet />
     </div>
-  );
-};
+  )
+}
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <RootLayout />,
     children: [
       {
-        path: "/",
-        element: <Home />,
+        path: '/',
+        element: <Home />
       },
       {
-        path: "browse",
-        element: <MovieBrowseGrid />,
+        path: 'browse',
+        element: <MovieBrowseGrid />
       },
       {
-        path: "about",
-        element: <About />,
+        path: 'about',
+        element: <About />
       },
       {
-        path: "contact",
-        element: <Contact />,
+        path: 'contact',
+        element: <Contact />
       },
       {
-        path: "movie/:id",
-        element: <MovieDetails />,
+        path: 'movie/:id',
+        element: <MovieDetails />
       },
       {
-        path: "tv/:id",
-        element: <MovieDetails />,
+        path: 'tv/:id',
+        element: <MovieDetails />
       },
       {
-        path: "*",
-        element: <ErrorMovieDetails />,
-      },
-    ],
-  },
-]);
+        path: '*',
+        element: <ErrorMovieDetails />
+      }
+    ]
+  }
+])
 
 const App = () => {
-  return <RouterProvider router={router} />;
-};
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  )
+}
 
-export default App;
+export default App
