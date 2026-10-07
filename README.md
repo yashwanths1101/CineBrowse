@@ -62,3 +62,21 @@ Install dependencies:
 Create a `.env` file in the project root:
 
     VITE_TMDB_TOKEN=your_tmdb_bearer_token
+
+## Troubleshooting
+
+### TMDB API / Website Not Loading
+
+If the website is not working as expected, the issue may be related to the network's DNS configuration or routing.
+
+Try switching your network's DNS to a public DNS provider:
+
+**Cloudflare DNS**
+
+- Preferred DNS: `1.1.1.1`
+- Alternate DNS: `1.0.0.1`
+
+**Google DNS**
+
+- Preferred DNS: `8.8.8.8`
+- Alternate DNS: `8.8.4.4`
