@@ -13,6 +13,9 @@ const Home = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let retryCount = 0
+    let retryTimer
+
     const loadFeaturedMovie = async () => {
       try {
         const movies = await fetchTrendingMovies('day')
@@ -21,12 +24,19 @@ const Home = () => {
         }
       } catch (err) {
         console.error('Error loading hero movie:', err)
+        if (retryCount < 4) {
+          retryCount++
+
+          retryTimer = setTimeout(loadFeaturedMovie, 3000)
+        }
       } finally {
         setLoading(false)
       }
     }
 
     loadFeaturedMovie()
+
+    return () => clearTimeout(retryTimer)
   }, [])
 
   if (loading) {

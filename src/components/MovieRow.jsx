@@ -14,6 +14,8 @@ const MovieRow = ({
   const rowRef = useRef(null)
 
   useEffect(() => {
+    let retryCount = 0
+    let retryTimer
     const loadData = async () => {
       setLoading(true)
       setError(null)
@@ -24,12 +26,19 @@ const MovieRow = ({
       } catch (err) {
         console.error(`Error loading row [${title}]:`, err)
         setError('Failed to load row content.')
+
+        if (retryCount < 5) {
+          retryCount++
+          retryTimer = setTimeout(loadData, 3000)
+        }
       } finally {
         setLoading(false)
       }
     }
 
     loadData()
+
+    return () => clearTimeout(retryTimer)
   }, [])
 
   const handleScroll = direction => {
